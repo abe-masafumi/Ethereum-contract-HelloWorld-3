@@ -1,17 +1,17 @@
 # ディレクトリ作成・Node.jsプロジェクトとして初期化
 <!-- <img src="home.png"> -->
-
-# "/"ディレクトリとcontractsディレクトリ直下にnode_modulesをインストールしてください
-# contractsディレクトリ直下に.envを作成してください
+- gitcloneした場合は実施してください
+* 必須＊"/"ディレクトリと`contracts`ディレクトリ直下に`node_modules`をインストールしてください
+* 必須＊contractsディレクトリ直下に.envを作成してください
 ```bash
 cd contrasts
 touch .env
 ```
 - INFURA_PROJECT_ID=*****
 - PRIVATE_KEY=****
+--------------
 
 > 参考資料:https://zenn.dev/cauchye/articles/ethereum-contract-helloworld-local  
-
 # Node.jsプロジェクトを作成
 
 > 参考資料:https://zenn.dev/cauchye/articles/ethereum-contract-helloworld-local   
