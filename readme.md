@@ -10,8 +10,6 @@ touch .env
 - INFURA_PROJECT_ID=*****
 - PRIVATE_KEY=****
 --------------
-
-> 参考資料:https://zenn.dev/cauchye/articles/ethereum-contract-helloworld-local  
 # Node.jsプロジェクトを作成
 
 > 参考資料:https://zenn.dev/cauchye/articles/ethereum-contract-helloworld-local   
@@ -58,6 +56,9 @@ node index.js
 > http://localhost:3000/   
 
 - Node.jsプロジェクトを作成は終わり
+---
+# Ethereum コントラクト開発 Hello world ローカル編
+> 参考資料:https://zenn.dev/cauchye/articles/ethereum-contract-helloworld-local  
 
 ```bash
 # フォルダを作成
