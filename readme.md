@@ -301,11 +301,13 @@ console.log(process.env.):
 > `contracts/scripts/sample-script-without-hardhat.js`を作成  
 
 ```js
+// 環境の設定
 const { ethers } = require("ethers");
 const contractJsonData = require("../artifacts/contracts/Greeter.sol/Greeter.json");
 require('dotenv').config();
 
 async function main() {
+  // INFURAとEtherscanに基づくFallbackProviderが自動的に作成されます。
   const provider = ethers.getDefaultProvider(
     "goerli",
     {
@@ -314,28 +316,38 @@ async function main() {
       // etherscan: process.env.ETHERSCAN_API_TOKEN,
     }
   );
+  // new ethers.Wallet( privateKey [ , provider ] )
+  // privateKeyの新しいWalletインスタンスを作成し、オプションでプロバイダーに接続します。
   const wallet = new ethers.Wallet(process.env.PRIVATE_KEY, provider);
+  // new ethers.ContractFactory( interface , bytecode [ , signer ] )
+  // インターフェイスとバイトコードinitcodeによって記述されたコントラクトのContractFactoryの新しいインスタンスを作成します。
   const contractFactory = new ethers.ContractFactory(contractJsonData.abi, contractJsonData.bytecode, wallet);
   
   console.log("greeting contract deploy start with 'Hello, world!'");
+  // 
   const contract = await contractFactory.deploy("Hello, world!");
   console.log(`greeting contract deploy tx hash: ${contract.deployTransaction.hash}`);
   console.log(`greeting contract deploy tx link: https://goerli.etherscan.io/tx/${contract.deployTransaction.hash}`);
   console.log("waiting for greeting contract deploy tx confirmed...");
+  // deployemntトランザクションの領収書を返します
   await contract.deployTransaction.wait([confirms = 1]);
   console.log("greeting contract deploy tx confirmed");
   const contractAddress = contract.address
   console.log(`greeting contract address: ${contractAddress}`);
-  
+
+  // new ethers.Contract( address , abi , providerOrSigner )
+  // コントラクトの新しいインスタンスを作成すると、ブロックチェーン上のアドレス、そのabi（クラスのメソッドにデータを入力するために使用）providerOrSignerを指定することにより、既存のコントラクトに接続します。
   const deployedContract = new ethers.Contract(contractAddress, contractJsonData.abi, provider);
   
   console.log(`current greeting message is ${await deployedContract.greet()}`);
   
   console.log("send tx to call setGreeting")
+
   const setGreetingTx = await deployedContract.connect(wallet).setGreeting("Hola, mundo!");
   console.log(`setGreeting tx hash: ${setGreetingTx.hash}`);
   console.log(`setGreeting tx link: https://goerli.etherscan.io/tx/${setGreetingTx.hash}`);
   console.log("waiting for setGreeting tx confirmed...");
+  
   await setGreetingTx.wait([confirms = 1]);
   console.log("setGreeting tx confirmed");
   
