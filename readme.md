@@ -12,8 +12,11 @@ touch .env
 --------------
 # Node.jsプロジェクトを作成
 
-> 参考資料:https://zenn.dev/cauchye/articles/ethereum-contract-helloworld-local   
-
+> 参考資料:https://zenn.dev/cauchye/articles/ethereum-contract-helloworld-local  
+ 
+- expressパッケージをインストール
+> Expressとは、Node.jsで利用できるWebアプリケーションフレームワーク  
+> システム開発時によく使う機能や設計などを予め用意してあるアプリケーション
 ```bash
 # package.jsonを生成
 npm init
@@ -21,9 +24,11 @@ npm init
 npm install  express --save
 ```
 
-```bash
-# expressパッケージをインストール
-npm install  express --save
+```js
+// httpモジュールの用意
+var http = require('http');
+var express = require("express");
+var app = express();
 ```
 
 - "/"ディレクトリにindex.jsファイルを作成する  
@@ -54,6 +59,7 @@ node index.js
 ```
 > 以下にアクセス  
 > http://localhost:3000/   
+> 参考資料:https://qiita.com/kamihork/items/ba7d86b4933fb2071a6b
 
 - Node.jsプロジェクトを作成は終わり
 ---
@@ -188,7 +194,7 @@ Account #19: 0x8626f6940e2eb28930efb4cef49b2d1f2c9c1199 (10000 ETH)
 Private Key: 0xdf57089febbacf7ba0bc227dafbffa9fc08a93fdc68e1e42411a14efcf23656e
 ```
 
-- 次に、別のターミナルを立ち上げて、npx hardhat test --network localhostコマンドを実行する
+- 次に、別のターミナルを立ち上げて `npx hardhat test --network localhost` コマンドを実行する
 
 ```bash
 # コントラクトのデプロイや、コントラクト内の関数の呼び出し等のログが出力
@@ -261,7 +267,7 @@ eth_call
   To:                  0x5fbdb2315678afecb367f032d93f642f64180aa3
 ```
 
-
+---
 # Ethereum コントラクト開発 Hello world テストネット
 
 > 参考資料:https://zenn.dev/cauchye/articles/ethereum-contract-helloworld-testnet  
@@ -287,14 +293,12 @@ require('dotenv').config();
 console.log(process.env.):
 // nodeを起動
 ```
+- .envファイルはgitとにあげたら消滅するので気おつけよう！（.gitignore管理必須）
 
-# .envファイルはgitとにあげたら消滅するので気おつけよう！（.gitignore管理必須）
-
-- hardhatを使わないコントラクトのデプロイ・呼び出し(hardhatを使った呼び出しができなかった)
-
+# hardhatを使わないコントラクトのデプロイ・呼び出し(hardhatを使った呼び出しができなかった)
 - ファイルの作成
 
-> contracts/scripts/sample-script-without-hardhat.jsを作成  
+> `contracts/scripts/sample-script-without-hardhat.js`を作成  
 
 ```js
 const { ethers } = require("ethers");
