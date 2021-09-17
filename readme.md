@@ -384,6 +384,34 @@ setGreeting tx confirmed
 after changing, greeting message is Hola, mundo!
 ```
 
+> ログ出力されたコントラクトやトランザクションの情報を記録しておきます  
+> コントラクトをデプロイしただけの状態では、Etherscanから確認できる情報は、あくまでもブロックチェーンにデプロイされた情報であり、そのままでは、既にデプロイ済のコントラクトをプログラムから呼び出して使用する際に利用したabi等の情報をEtherscanで直接参照できない  
+
+- verify and publish
+ ```bash
+ npm install --save-dev @nomiclabs/hardhat-etherscan
+ ```
+
+ - `contracts/hardhat.config.js`を編集
+```js
+// ページの先頭に追加する
+require("@nomiclabs/hardhat-etherscan");
+```
+<!-- 実行する -->
+```bash
+# コントラクトのsolファイルのパス, 名前, hardhat.config.js内で指定した接続先ネットワーク名, コントラクトアドレス, コントラクトデプロイ時に指定するパラメーターの値(=今回の場合"Hello, world!"。コントラクトデプロイ時に指定するパラメーターなければ不要)を以下のようなコマンドで指定して実行
+npx hardhat verify --contract contracts/Greeter.sol:Greeter --network ropsten 0x5fbdb2315678afecb367f032d93f642f64180aa3 "Hello, world"
+# 結果
+Nothing to compile
+Compiling 1 file with 0.8.4
+Successfully submitted source code for contract
+contracts/Greeter.sol:Greeter at 0x8d9fBC02598e32C8d594bbEF4257846653ff4732
+for verification on Etherscan. Waiting for verification result...
+
+Successfully verified contract Greeter on Etherscan.
+https://goerli.etherscan.io/address/0x8d9fBC02598e32C8d594bbEF4257846653ff4732#code
+```
+
 # Ethereum コントラクト開発 ERC721編 
 参考資料: https://zenn.dev/cauchye/articles/ethereum-contract-erc721
 
